@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="fr" data-scheme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NitraXShoP — Nitro, Boosts et Comptes Discord</title>
+  <meta name="description" content="NitraXShoP — achetez du Discord Nitro, des boosts serveur et des comptes Discord. Livraison rapide, paiement sécurisé Stripe et PayPal." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ==== Effets de fond (glow, noise, particules) ==== -->
+  <div class="page-fx" aria-hidden="true">
+    <div class="pfx-glow pfx-glow--top"></div>
+    <div class="pfx-glow pfx-glow--mid"></div>
+    <div class="pfx-particles" id="particles"></div>
+    <div class="pfx-noise"></div>
+  </div>
+
+  <div class="page">
+
+    <!-- ==== HEADER ==== -->
+    <header class="sa-header" id="header">
+      <nav class="navbar">
+        <div class="navbar__pill">
+          <a href="#home" class="sa-navbar-logo">
+            <span class="logo__mark">◈</span>
+            <span class="logo__text">Nitra<span>XShoP</span></span>
+          </a>
+
+          <div class="nav-pills" id="navPills">
+            <a href="#home" class="nav-pill is-active" data-i18n="nav_home">Accueil</a>
+            <a href="#shop" class="nav-pill" data-i18n="nav_shop">Boutique</a>
+            <a href="#how" class="nav-pill" data-i18n="nav_how">Comment ça marche</a>
+            <a href="#faq" class="nav-pill" data-i18n="nav_faq">FAQ</a>
+            <a href="#contact" class="nav-pill" data-i18n="nav_contact">Contact</a>
+          </div>
+
+          <div class="navbar__actions">
+            <button class="icon-btn" id="langBtn" aria-label="Langue">
+              <span id="langFlag">🇫🇷</span>
+            </button>
+
+            <button class="icon-btn" id="schemeBtn" aria-label="Thème">
+              <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32 1.41-1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+
+            <button class="cart-btn" id="cartBtn" aria-label="Panier">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M3 3h2l.4 2M7 13h10l3-8H5.4M7 13L5.4 5M7 13l-2 4h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+              <span class="cart-btn__count" id="cartCount">0</span>
+            </button>
+
+            <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+          </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+          <a href="#home" class="mobile-link is-active" data-i18n="nav_home">Accueil</a>
+          <a href="#shop" class="mobile-link" data-i18n="nav_shop">Boutique</a>
+          <a href="#how" class="mobile-link" data-i18n="nav_how">Comment ça marche</a>
+          <a href="#faq" class="mobile-link" data-i18n="nav_faq">FAQ</a>
+          <a href="#contact" class="mobile-link" data-i18n="nav_contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ==== HERO ==== -->
+      <section class="hero" id="home">
+        <div class="hero-pillars" aria-hidden="true">
+          <div class="hero-pillar"></div>
+          <div class="hero-pillar"></div>
+          <div class="hero-pillar"></div>
+          <div class="hero-pillar"></div>
+          <div class="hero-pillars-glow"></div>
+        </div>
+
+        <div class="wrap hero__inner">
+          <div class="sa-hero-eyebrow">
+            <span class="blink-dot"></span>
+            <span data-i18n="hero_badge">Livraison instantanée 24/7</span>
+          </div>
+
+          <h1 class="sa-hero-title hl-accent">
+            <span data-i18n="hero_title1">Nitro, Boosts et</span>
+            <span class="mk" data-i18n="hero_title2">Comptes Discord</span>
+          </h1>
+
+          <p class="sa-hero-subtitle" data-i18n="hero_text"></p>
+
+          <div class="sa-hero-actions">
+            <a href="#shop" class="sa-btn sa-btn--primary" data-i18n="hero_cta">Voir la boutique</a>
+            <a href="#how" class="sa-btn sa-btn--outline" data-i18n="hero_cta2">Comment ça marche</a>
+          </div>
+
+          <div class="hero-trust">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6l-8-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="hero_trust_1">Livraison instantanée</span></span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span data-i18n="hero_trust_2">Paiement sécurisé</span></span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="hero_trust_3">Support humain</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==== LOGOS / CATÉGORIES (marquee) ==== -->
+      <section class="logo-cloud">
+        <div class="marquee-fade">
+          <div class="marquee-track" id="marqueeTrack"></div>
+        </div>
+      </section>
+
+      <!-- ==== TRUST / PAIEMENTS ==== -->
+      <section class="pay-strip">
+        <div class="wrap pay-strip__inner">
+          <span class="pay-strip__label">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6l-8-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            <span data-i18n="pay_secure">Paiement sécurisé</span>
+          </span>
+          <div class="pay-chips">
+            <span class="pay-chip chip-ring" title="Stripe" style="animation-delay:0s">💳</span>
+            <span class="pay-chip chip-ring" title="PayPal" style="animation-delay:1.2s">🅿️</span>
+            <span class="pay-chip chip-ring" title="Livraison" style="animation-delay:2.4s">⚡</span>
+            <span class="pay-chip chip-ring" title="Garantie" style="animation-delay:3.6s">🛡️</span>
+          </div>
+          <p class="pay-strip__note" data-i18n="pay_methods">Tous les moyens de paiement acceptés</p>
+        </div>
+      </section>
+
+      <!-- ==== BOUTIQUE ==== -->
+      <section class="section" id="shop">
+        <div class="wrap">
+          <div class="sa-section-header">
+            <p class="sa-section-eyebrow" data-i18n="shop_eyebrow">Boutique</p>
+            <div class="ghost-wrap">
+              <h2 class="sa-section-title hl-accent">
+                <span data-i18n="shop_title1">Nos meilleures</span>
+                <span class="mk" data-i18n="shop_title2">offres</span>
+              </h2>
+              <span class="ghost-echo" id="shopEcho" aria-hidden="true">Nos meilleures offres</span>
+            </div>
+            <p class="sa-section-subtitle" data-i18n="shop_sub"></p>
+          </div>
+
+          <div class="shop__toolbar">
+            <div class="tabs" id="tabs"></div>
+            <div class="search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input type="search" id="searchInput" data-i18n-ph="search_ph" placeholder="Rechercher..." />
+            </div>
+          </div>
+
+          <div class="grid" id="grid"></div>
+
+          <div class="empty-state" id="noResult" hidden>
+            <div class="empty__ico">🔍</div>
+            <h3 data-i18n="no_result">Aucun résultat</h3>
+            <p data-i18n="no_result_sub"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==== COMMENT ÇA MARCHE ==== -->
+      <section class="section section--alt" id="how">
+        <div class="wrap">
+          <div class="sa-section-header">
+            <p class="sa-section-eyebrow" data-i18n="how_eyebrow">Processus</p>
+            <div class="ghost-wrap">
+              <h2 class="sa-section-title hl-accent">
+                <span data-i18n="how_title1">Comment ça</span>
+                <span class="mk" data-i18n="how_title2">marche</span>
+              </h2>
+              <span class="ghost-echo" id="howEcho" aria-hidden="true">Comment ça marche</span>
+            </div>
+            <p class="sa-section-subtitle" data-i18n="how_sub"></p>
+          </div>
+
+          <div class="steps">
+            <div class="step card-p hfx-spotlight">
+              <span class="step__n">01</span>
+              <div class="step__ico">🛒</div>
+              <h4 data-i18n="how_1_t"></h4>
+              <p data-i18n="how_1_d"></p>
+            </div>
+            <div class="step card-p hfx-spotlight">
+              <span class="step__n">02</span>
+              <div class="step__ico">🧾</div>
+              <h4 data-i18n="how_2_t"></h4>
+              <p data-i18n="how_2_d"></p>
+            </div>
+            <div class="step card-p hfx-spotlight">
+              <span class="step__n">03</span>
+              <div class="step__ico">💳</div>
+              <h4 data-i18n="how_3_t"></h4>
+              <p data-i18n="how_3_d"></p>
+            </div>
+            <div class="step card-p hfx-spotlight">
+              <span class="step__n">04</span>
+              <div class="step__ico">🎁</div>
+              <h4 data-i18n="how_4_t"></h4>
+              <p data-i18n="how_4_d"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==== FAQ ==== -->
+      <section class="section" id="faq">
+        <div class="wrap wrap--narrow">
+          <div class="sa-section-header">
+            <p class="sa-section-eyebrow">FAQ</p>
+            <div class="ghost-wrap">
+              <h2 class="sa-section-title hl-accent">
+                <span data-i18n="faq_title1">Questions</span>
+                <span class="mk" data-i18n="faq_title2">fréquentes</span>
+              </h2>
+              <span class="ghost-echo" id="faqEcho" aria-hidden="true">Questions fréquentes</span>
+            </div>
+            <p class="sa-section-subtitle" data-i18n="faq_sub"></p>
+          </div>
+          <div class="faq" id="faqList"></div>
+        </div>
+      </section>
+
+      <!-- ==== CONTACT ==== -->
+      <section class="section section--alt" id="contact">
+        <div class="wrap">
+          <div class="contact-cta card-p">
+            <div class="contact-cta__glow" aria-hidden="true"></div>
+            <div class="contact-cta__content">
+              <h2 class="hl-accent"><span data-i18n="contact_title1">Une</span> <span class="mk" data-i18n="contact_title2">question ?</span></h2>
+              <p data-i18n="contact_sub"></p>
+              <div class="contact-cta__btns">
+                <a href="#" id="discordLink" class="sa-btn sa-btn--primary" target="_blank" rel="noopener" data-i18n="contact_cta">Rejoindre le Discord</a>
+                <a href="#" id="mailLink" class="sa-btn sa-btn--outline" data-i18n="contact_mail">Envoyer un e-mail</a>
+              </div>
+            </div>
+            <div class="contact-cta__info">
+              <div class="contact-row"><span>💬</span><div><small>Discord</small><b id="discordTag">discord.gg/...</b></div></div>
+              <div class="contact-row"><span>✉️</span><div><small>E-mail</small><b id="mailTag">contact@tonshop.fr</b></div></div>
+              <div class="contact-row"><span>⏱️</span><div><small>Support</small><b>24h/24 · 7j/7</b></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==== FOOTER ==== -->
+    <footer class="sa-footer">
+      <div class="wrap footer__grid">
+        <div class="footer__brand">
+          <a href="#home" class="sa-navbar-logo">
+            <span class="logo__mark">◈</span>
+            <span class="logo__text">Nitra<span>XShoP</span></span>
+          </a>
+          <p data-i18n="footer_tagline"></p>
+        </div>
+        <div class="footer__col">
+          <h5 data-i18n="footer_col_shop">Boutique</h5>
+          <a href="#shop" data-i18n="nav_shop">Boutique</a>
+          <a href="#how" data-i18n="nav_how">Comment ça marche</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer__col">
+          <h5 data-i18n="footer_col_support">Support</h5>
+          <a href="#contact" data-i18n="nav_contact">Contact</a>
+          <a href="#" id="footerDiscord" target="_blank" rel="noopener">Discord</a>
+          <a href="#" id="footerMail">E-mail</a>
+        </div>
+        <div class="footer__col">
+          <h5 data-i18n="footer_col_legal">Légal</h5>
+          <a href="mentions-legales.html" data-i18n="legal_notice">Mentions légales</a>
+          <a href="cgv.html" data-i18n="legal_terms">CGV</a>
+          <a href="confidentialite.html" data-i18n="legal_privacy">Confidentialité</a>
+          <a href="remboursement.html" data-i18n="legal_refund">Remboursement</a>
+        </div>
+      </div>
+      <div class="wrap footer__bottom">
+        <span>© <span id="year"></span> NitraXShoP. <span data-i18n="rights"></span></span>
+        <span class="footer__pay">💳 Stripe · PayPal</span>
+      </div>
+      <div class="wrap">
+        <p class="footer__legal" data-i18n="footer_note"></p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==== PANIER ==== -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__head">
+      <h3 data-i18n="cart">Panier</h3>
+      <button class="icon-btn" id="drawerClose" aria-label="Fermer">✕</button>
+    </div>
+
+    <div class="drawer__body" id="cartItems"></div>
+
+    <div class="drawer__empty" id="cartEmpty">
+      <div class="empty__ico">🛒</div>
+      <h4 data-i18n="empty">Ton panier est vide</h4>
+      <p data-i18n="empty_sub"></p>
+    </div>
+
+    <div class="drawer__foot" id="cartFoot" hidden>
+      <div class="drawer__row">
+        <span data-i18n="subtotal">Sous-total</span>
+        <b id="cartSubtotal">0,00 €</b>
+      </div>
+      <div class="drawer__row drawer__row--total">
+        <span data-i18n="total">Total</span>
+        <b id="cartTotal">0,00 €</b>
+      </div>
+
+      <div class="pay">
+        <div class="pay__label" data-i18n="pay_with">Payer avec</div>
+
+        <div id="paypalMount" class="paypal-mount"></div>
+
+        <button class="sa-btn sa-btn--stripe" id="stripeBtn" hidden>
+          💳 <span data-i18n="stripe">Carte bancaire (Stripe)</span>
+        </button>
+
+        <div class="pay-empty" id="payEmpty" hidden>
+          <p data-i18n="pay_unavailable"></p>
+          <a href="#" id="payDiscord" class="sa-btn sa-btn--primary" target="_blank" rel="noopener" data-i18n="pay_contact_btn">Commander sur Discord</a>
+        </div>
+      </div>
+
+      <button class="link-danger" id="clearCart" data-i18n="clear">Vider</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
