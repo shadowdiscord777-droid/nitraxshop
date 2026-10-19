@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Panneau admin — NitraXShoP</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .adm-body { min-height: 100vh; background: rgba(5,0,4,1); color: #fff; }
+    .adm-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 22px; border-bottom: 1px solid rgba(255,255,255,.08);
+      position: sticky; top: 0; background: rgba(5,0,4,.9); backdrop-filter: blur(10px); z-index: 5;
+    }
+    .adm-top b { font-family: Poppins, Inter, sans-serif; letter-spacing: .3px; }
+    .adm-top b span { color: rgb(var(--accent)); }
+    .adm-wrap { max-width: 980px; margin: 0 auto; padding: 28px 18px 80px; }
+    .adm-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+      border-radius: 16px; padding: 22px;
+    }
+    .adm-login { max-width: 420px; margin: 8vh auto 0; text-align: center; }
+    .adm-login h1 { font-size: 1.35rem; margin: 0 0 6px; }
+    .adm-login p { opacity: .7; font-size: .9rem; margin: 0 0 18px; }
+    .adm-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; text-align: left; }
+    .adm-field label { font-size: .8rem; opacity: .75; }
+    .adm-field input, .adm-field select, .adm-field textarea {
+      width: 100%; padding: 10px 12px; border-radius: 10px; font: inherit;
+      background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.14); color: #fff;
+    }
+    .adm-field textarea { min-height: 74px; resize: vertical; font-size: .9rem; }
+    .adm-btn {
+      padding: 11px 18px; border-radius: 10px; border: 0; cursor: pointer; font: inherit; font-weight: 600;
+      background: rgb(var(--accent)); color: rgb(var(--on-accent));
+    }
+    .adm-btn--ghost { background: rgba(255,255,255,.08); color: #fff; }
+    .adm-btn--danger { background: #e11d48; color: #fff; }
+    .adm-btn:disabled { opacity: .5; cursor: default; }
+    .adm-bar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 18px; position: sticky; top: 69px; z-index: 4;
+      background: rgba(5,0,4,.85); backdrop-filter: blur(8px); padding: 10px 0;
+    }
+    .adm-bar .spacer { flex: 1; }
+    .adm-status { font-size: .88rem; opacity: .85; }
+    .adm-status.ok { color: #34d399; }
+    .adm-status.err { color: #f87171; }
+    .prod {
+      background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.09);
+      border-radius: 14px; padding: 16px; margin-bottom: 14px;
+    }
+    .prod__head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .prod__head .pid { font-weight: 700; font-family: Poppins, Inter, sans-serif; }
+    .prod__head .spacer { flex: 1; }
+    .prod__thumb {
+      width: 44px; height: 44px; border-radius: 10px; object-fit: contain;
+      background: rgba(0,0,0,.35); padding: 4px;
+    }
+    .prod__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .prod__grid .full { grid-column: 1 / -1; }
+    @media (max-width: 620px) { .prod__grid { grid-template-columns: 1fr; } }
+    .muted { opacity: .6; font-size: .82rem; }
+  </style>
+</head>
+<body class="adm-body">
+  <header class="adm-top">
+    <b>NitraX<span>ShoP</span> · Admin</b>
+    <button id="logoutBtn" class="adm-btn adm-btn--ghost" hidden>Déconnexion</button>
+  </header>
+
+  <main class="adm-wrap">
+    <section id="loginView" class="adm-card adm-login">
+      <h1>Panneau administrateur</h1>
+      <p>Entrez le mot de passe pour modifier les produits et les prix.</p>
+      <form id="loginForm">
+        <div class="adm-field">
+          <label for="pw">Mot de passe</label>
+          <input id="pw" type="password" autocomplete="current-password" placeholder="••••••••" />
+        </div>
+        <button class="adm-btn" type="submit" id="loginBtn" style="width:100%">Se connecter</button>
+        <p id="loginMsg" class="adm-status err" style="margin-top:12px"></p>
+      </form>
+    </section>
+
+    <section id="editView" hidden>
+      <div class="adm-bar">
+        <button id="addBtn" class="adm-btn adm-btn--ghost">+ Ajouter un produit</button>
+        <button id="reloadBtn" class="adm-btn adm-btn--ghost">Recharger</button>
+        <span class="spacer"></span>
+        <span id="status" class="adm-status"></span>
+        <button id="saveBtn" class="adm-btn">Enregistrer</button>
+      </div>
+      <p class="muted">Les modifications deviennent visibles sur le site dès l'enregistrement.</p>
+      <div id="list"></div>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const $ = (s, r) => (r || document).querySelector(s);
+      const CFG = window.SHOP_CONFIG;
+      const PW_KEY = "shop_admin_pw";
+      let products = [];
+
+      const cats = (CFG.categories || []).filter((c) => c.id !== "all");
+      const badges = [
+        ["", "—"],
+        ["promo", "Promo"],
+        ["popular", "Populaire"],
+        ["best", "Meilleur"],
+        ["new", "Nouveau"]
+      ];
+
+      function productFromConfig(list) {
+        return list.map((p) => JSON.parse(JSON.stringify(p)));
+      }
+
+      function status(msg, kind) {
+        const el = $("#status");
+        el.textContent = msg || "";
+        el.className = "adm-status " + (kind || "");
+      }
+
+      async function loadProducts() {
+        try {
+          const res = await fetch("/api/products", { cache: "no-store" });
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data.products) && data.products.length) {
+              return data.products;
+            }
+          }
+        } catch (e) {}
+        return productFromConfig(CFG.products || []);
+      }
+
+      function featToText(features) {
+        return (features || [])
+          .map((f) => (f.fr || "") + " | " + (f.en || ""))
+          .join("\n");
+      }
+      function textToFeat(text) {
+        return text
+          .split("\n")
+          .map((l) => l.trim())
+          .filter(Boolean)
+          .map((l) => {
+            const i = l.indexOf("|");
+            if (i === -1) return { fr: l, en: l };
+            return { fr: l.slice(0, i).trim(), en: l.slice(i + 1).trim() };
+          });
+      }
+
+      function render() {
+        $("#list").innerHTML = products
+          .map((p, i) => {
+            const catOpts = cats
+              .map(
+                (c) =>
+                  `<option value="${c.id}"${p.cat === c.id ? " selected" : ""}>${c.label.fr}</option>`
+              )
+              .join("");
+            const badgeOpts = badges
+              .map(
+                (b) =>
+                  `<option value="${b[0]}"${(p.badge || "") === b[0] ? " selected" : ""}>${b[1]}</option>`
+              )
+              .join("");
+            return `
+            <div class="prod" data-idx="${i}">
+              <div class="prod__head">
+                <img class="prod__thumb" src="${p.img || ""}" alt="" onerror="this.style.visibility='hidden'" />
+                <span class="pid">${p.id || "(sans id)"}</span>
+                <span class="spacer"></span>
+                <button class="adm-btn adm-btn--danger" data-del="${i}">Supprimer</button>
+              </div>
+              <div class="prod__grid">
+                <div class="adm-field"><label>Identifiant (id)</label><input data-i="${i}" data-f="id" value="${esc(p.id)}" /></div>
+                <div class="adm-field"><label>Catégorie</label><select data-i="${i}" data-f="cat">${catOpts}</select></div>
+                <div class="adm-field"><label>Emoji (icon)</label><input data-i="${i}" data-f="icon" value="${esc(p.icon)}" /></div>
+                <div class="adm-field"><label>Image (chemin/URL)</label><input data-i="${i}" data-f="img" value="${esc(p.img)}" /></div>
+                <div class="adm-field"><label>Prix (€)</label><input type="number" step="0.01" min="0" data-i="${i}" data-f="price" value="${num(p.price)}" /></div>
+                <div class="adm-field"><label>Ancien prix (€, vide = aucun)</label><input type="number" step="0.01" min="0" data-i="${i}" data-f="oldPrice" value="${p.oldPrice ? num(p.oldPrice) : ""}" /></div>
+                <div class="adm-field"><label>Badge</label><select data-i="${i}" data-f="badge">${badgeOpts}</select></div>
+                <div class="adm-field"><label>Nom (FR)</label><input data-i="${i}" data-f="name.fr" value="${esc(p.name && p.name.fr)}" /></div>
+                <div class="adm-field"><label>Nom (EN)</label><input data-i="${i}" data-f="name.en" value="${esc(p.name && p.name.en)}" /></div>
+                <div class="adm-field full"><label>Description (FR)</label><input data-i="${i}" data-f="desc.fr" value="${esc(p.desc && p.desc.fr)}" /></div>
+                <div class="adm-field full"><label>Description (EN)</label><input data-i="${i}" data-f="desc.en" value="${esc(p.desc && p.desc.en)}" /></div>
+                <div class="adm-field full"><label>Avantages — une ligne par avantage, format « FR | EN »</label><textarea data-i="${i}" data-f="feat" data-text="1">${esc(featToText(p.features))}</textarea></div>
+              </div>
+            </div>`;
+          })
+          .join("");
+      }
+
+      function esc(v) {
+        return String(v == null ? "" : v)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+      function num(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : "";
+      }
+
+      $("#list").addEventListener("input", (e) => {
+        const el = e.target.closest("[data-i]");
+        if (!el) return;
+        const i = Number(el.dataset.i);
+        const f = el.dataset.f;
+        const val = el.type === "number" ? Number(el.value) : el.value;
+        if (f === "feat") {
+          products[i].features = textToFeat(el.value);
+          return;
+        }
+        if (f === "price") { products[i].price = val; return; }
+        if (f === "oldPrice") {
+          if (val === "" || val === 0 || !Number.isFinite(val)) delete products[i].oldPrice;
+          else products[i].oldPrice = val;
+          return;
+        }
+        if (f === "id") { products[i].id = el.value; document.querySelector(`[data-idx="${i}"] .pid`).textContent = el.value || "(sans id)"; return; }
+        if (f === "cat" || f === "badge" || f === "icon" || f === "img") { products[i][f] = el.value; return; }
+        if (f === "name.fr" || f === "name.en") { products[i].name = products[i].name || {}; products[i].name[f.split(".")[1]] = el.value; return; }
+        if (f === "desc.fr" || f === "desc.en") { products[i].desc = products[i].desc || {}; products[i].desc[f.split(".")[1]] = el.value; return; }
+      });
+
+      $("#list").addEventListener("click", (e) => {
+        const del = e.target.closest("[data-del]");
+        if (!del) return;
+        const i = Number(del.dataset.del);
+        if (confirm("Supprimer « " + (products[i].id || "") + " » ?")) {
+          products.splice(i, 1);
+          render();
+        }
+      });
+
+      $("#addBtn").addEventListener("click", () => {
+        products.push({
+          id: "nouveau-" + Date.now().toString(36),
+          cat: cats[0] ? cats[0].id : "nitro",
+          icon: "✨",
+          img: "",
+          price: 0,
+          badge: "",
+          name: { fr: "Nouveau produit", en: "New product" },
+          desc: { fr: "", en: "" },
+          features: []
+        });
+        render();
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      });
+
+      $("#reloadBtn").addEventListener("click", async () => {
+        if (!confirm("Recharger depuis le serveur ? Les modifications non enregistrées seront perdues.")) return;
+        products = await loadProducts();
+        render();
+        status("Produits rechargés.", "ok");
+      });
+
+      $("#saveBtn").addEventListener("click", async () => {
+        const pw = sessionStorage.getItem(PW_KEY);
+        $("#saveBtn").disabled = true;
+        status("Enregistrement…");
+        try {
+          const res = await fetch("/api/admin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password: pw, products })
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.ok) {
+            status("Enregistré ✓ (" + data.count + " produits)", "ok");
+          } else if (res.status === 401) {
+            status("Session expirée, reconnectez-vous.", "err");
+            sessionStorage.removeItem(PW_KEY);
+            setTimeout(() => location.reload(), 1200);
+          } else {
+            status("Erreur : " + (data.error || res.status), "err");
+          }
+        } catch (e) {
+          status("Erreur réseau.", "err");
+        } finally {
+          $("#saveBtn").disabled = false;
+        }
+      });
+
+      $("#logoutBtn").addEventListener("click", () => {
+        sessionStorage.removeItem(PW_KEY);
+        location.reload();
+      });
+
+      $("#loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const pw = $("#pw").value;
+        const btn = $("#loginBtn");
+        btn.disabled = true;
+        $("#loginMsg").textContent = "";
+        try {
+          const res = await fetch("/api/admin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password: pw, products: null })
+          });
+          if (res.status === 401) {
+            $("#loginMsg").textContent = "Mot de passe incorrect.";
+            return;
+          }
+          if (res.status === 400) {
+            sessionStorage.setItem(PW_KEY, pw);
+            await enterEditor();
+            return;
+          }
+          if (!res.ok) {
+            $("#loginMsg").textContent = "Serveur indisponible (" + res.status + ").";
+            return;
+          }
+        } catch (err) {
+          $("#loginMsg").textContent = "Erreur réseau. Réessayez.";
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      async function enterEditor() {
+        $("#loginView").hidden = true;
+        $("#editView").hidden = false;
+        $("#logoutBtn").hidden = false;
+        products = await loadProducts();
+        render();
+        status("Connecté.", "ok");
+      }
+
+      (async function start() {
+        if (sessionStorage.getItem(PW_KEY)) {
+          await enterEditor();
+        }
+      })();
+    })();
+  </script>
+</body>
+</html>
