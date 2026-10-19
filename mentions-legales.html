@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr" data-scheme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mentions légales — NitraXShoP</title>
+  <meta name="description" content="Mentions légales de NitraXShoP : éditeur, hébergeur et informations légales." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page-fx" aria-hidden="true">
+    <div class="pfx-glow pfx-glow--top"></div>
+    <div class="pfx-noise"></div>
+  </div>
+
+  <div class="page">
+    <header class="legal-head">
+      <div class="wrap legal-head__inner">
+        <a href="index.html" class="sa-navbar-logo">
+          <span class="logo__mark">◈</span>
+          <span class="logo__text">Nitra<span>XShoP</span></span>
+        </a>
+        <a href="index.html" class="legal__back">← Retour à la boutique</a>
+      </div>
+    </header>
+
+    <main class="legal">
+      <div class="wrap legal__inner">
+        <p class="legal__eyebrow">Informations légales</p>
+        <h1>Mentions légales</h1>
+        <p class="legal__updated">Dernière mise à jour : [DATE]</p>
+
+        <div class="legal__todo">
+          <b>À compléter avant la mise en ligne :</b> remplace chaque champ entre crochets par les
+          informations réelles de l'exploitant du site (le parent responsable du compte Stripe).
+          Stripe vérifie ces informations pour valider le mode live.
+        </div>
+
+        <h2>1. Éditeur du site</h2>
+        <p>Le site NitraXShoP est édité par :</p>
+        <ul>
+          <li>Nom / raison sociale : <b>[NOM ET PRÉNOM DU PARENT OU NOM DE LA STRUCTURE]</b></li>
+          <li>Statut : <b>[PARTICULIER / AUTO-ENTREPRENEUR / SOCIÉTÉ]</b></li>
+          <li>Numéro SIREN / SIRET : <b>[NUMÉRO OU « néant » SI PARTICULIER]</b></li>
+          <li>Adresse : <b>[ADRESSE COMPLÈTE]</b></li>
+          <li>E-mail de contact : <b id="legalMail">contact@tonshop.fr</b></li>
+          <li>Responsable de la publication : <b>[NOM DU RESPONSABLE]</b></li>
+        </ul>
+
+        <h2>2. Hébergement</h2>
+        <p>Le site est hébergé par :</p>
+        <ul>
+          <li>Netlify, Inc. — 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis</li>
+          <li>Site : https://www.netlify.com</li>
+        </ul>
+
+        <h2>3. Propriété intellectuelle</h2>
+        <p>
+          L'ensemble des éléments du site (textes, visuels, logos, mise en page, code) est la
+          propriété exclusive de l'éditeur, sauf mention contraire. Toute reproduction,
+          représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable
+          est interdite.
+        </p>
+
+        <h2>4. Marques tierces et non-affiliation</h2>
+        <p>
+          NitraXShoP est un site indépendant. Il n'est ni affilié, ni associé, ni sponsorisé par
+          Discord Inc. La marque « Discord », le logo et les noms de produits associés sont la
+          propriété de leurs détenteurs respectifs et sont utilisés à titre purement descriptif.
+        </p>
+        <p>
+          Les logos des moyens de paiement (Stripe, PayPal) appartiennent à leurs sociétés
+          respectives et servent uniquement à indiquer les prestataires disponibles.
+        </p>
+
+        <h2>5. Responsabilité</h2>
+        <p>
+          L'éditeur s'efforce d'assurer l'exactitude des informations diffusées sur le site mais ne
+          peut garantir l'absence d'erreur. Il ne saurait être tenu responsable des dommages directs
+          ou indirects résultant de l'utilisation du site ou de l'impossibilité d'y accéder.
+        </p>
+
+        <h2>6. Données personnelles</h2>
+        <p>
+          Le traitement des données personnelles est décrit dans notre
+          <a href="confidentialite.html">politique de confidentialité</a>.
+        </p>
+
+        <h2>7. Droit applicable</h2>
+        <p>
+          Les présentes mentions sont soumises au droit français. En cas de litige, et à défaut de
+          résolution amiable, les tribunaux français seront seuls compétents.
+        </p>
+
+        <nav class="legal__nav">
+          <a href="cgv.html" class="sa-btn sa-btn--outline">Conditions générales de vente</a>
+          <a href="confidentialite.html" class="sa-btn sa-btn--outline">Confidentialité</a>
+          <a href="remboursement.html" class="sa-btn sa-btn--outline">Remboursement</a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="sa-footer">
+      <div class="wrap footer__bottom">
+        <span>© <span id="year"></span> NitraXShoP.</span>
+        <span><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">CGV</a> · <a href="confidentialite.html">Confidentialité</a> · <a href="remboursement.html">Remboursement</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
