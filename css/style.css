@@ -155,6 +155,11 @@ button, input { font-family: inherit; }
   box-shadow: 0 4px 16px rgba(var(--accent), 0.35);
 }
 .logo__text span { color: rgb(var(--accent)); }
+.logo__img {
+  width: 32px; height: 32px; border-radius: 9px;
+  object-fit: contain; flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+}
 
 .nav-pills {
   position: absolute; left: 50%; transform: translateX(-50%);
