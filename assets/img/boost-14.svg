@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0a1a"/>
+      <stop offset="50%" stop-color="#4a044e"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect width="640" height="360" fill="url(#glow)"/>
+  <circle cx="320" cy="150" r="72" fill="url(#accent)" opacity="0.9"/>
+  <polygon points="320,95 345,145 320,145 335,200 300,145 320,145 295,145" fill="#fbcfe8" opacity="0.95"/>
+  <text x="320" y="275" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#fce7f3" text-anchor="middle">NitraXShoP</text>
+  <text x="320" y="305" font-family="Arial,sans-serif" font-size="15" fill="#f472b6" text-anchor="middle">BOOST SERVEUR</text>
+  <text x="320" y="332" font-family="Arial,sans-serif" font-size="12" fill="#ec4899" text-anchor="middle">✦ 14 BOOSTS — NIVEAU 2 ✦</text>
+</svg>
